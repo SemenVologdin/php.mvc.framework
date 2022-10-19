@@ -10,4 +10,6 @@ $obApp->router->get('/', function (){
     return 'Hello World!';
 });
 
+$obApp->router->get('/contact', 'contact');
+
 $obApp->run();

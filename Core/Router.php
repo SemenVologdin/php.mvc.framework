@@ -22,10 +22,22 @@ class Router
     {
         $strPath = $this->request->getPath();
         $strMethod = $this->request->getMethod();
-        if( !is_callable( $this->routers[$strMethod][$strPath] ) ){
-            echo '<h1>Method Not Found!</h1>';
-            die();
+        $fnCallBack = $this->routers[$strMethod][$strPath];
+        if( is_callable( $fnCallBack ) ){
+            return $fnCallBack();
+        }elseif ( is_string($strMethod) ){
+            return $this->renderView($fnCallBack);
         }
-        echo $this->routers[$strMethod][$strPath]();
+        return '<h1>Method Not Found!</h1>';
+    }
+
+    public function renderView( string $strMethod )
+    {
+        include_once Application::$ROOT_PATH . '/View/'. $strMethod . '.php';
+    }
+
+    protected function renderOnlyView()
+    {
+
     }
 }

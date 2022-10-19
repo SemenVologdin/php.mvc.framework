@@ -6,14 +6,16 @@ class Application
 {
     public Router $router;
     public Request $request;
-    public function __construct()
+    public static string $ROOT_PATH;
+    public function __construct( $strRootPath )
     {
+        static::$ROOT_PATH = $strRootPath;
         $this->request = new Request();
         $this->router = new Router( $this->request );
     }
 
     public function run()
     {
-        $this->router->resolve();
+        echo $this->router->resolve();
     }
 }
